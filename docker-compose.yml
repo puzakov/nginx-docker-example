@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  web:
+    image: nginx
+    volumes: 
+      - ./reactapp/build:/www
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "80:80"
+
+  nodeapp:
+    image: node:10-jessie
+    working_dir: /www
+    command: ["node", "index.js"]
+    restart: always
+    volumes:
+      - ./nodeapp:/www
